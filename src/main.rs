@@ -1,7 +1,7 @@
 use adw::prelude::*;
 
 use adw::{ActionRow, ApplicationWindow, HeaderBar};
-use adw::gtk::{Application, Box, ListBox, Orientation};
+use adw::gtk::{Application, Box, ListBox, Orientation, CenterBox};
 
 fn main() {
     let application = Application::builder()
@@ -64,7 +64,13 @@ fn main() {
                 .title_widget(&adw::WindowTitle::new("First App", ""))
                 .build(),
         );
-        content.append(&columns);
+        let center_box = CenterBox::new();
+        let lbox = Box::new(Orientation::Horizontal, 0);
+        let rbox = Box::new(Orientation::Horizontal, 0);
+        center_box.set_start_widget(Some(&lbox));
+        center_box.set_center_widget(Some(&columns));
+        center_box.set_end_widget(Some(&rbox));
+        content.append(&center_box);
 
         let window = ApplicationWindow::builder()
             .application(app)
